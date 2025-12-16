@@ -14,6 +14,8 @@ from extensions import db
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.secret_key = "super-secret-key"
+
 
 
 db.init_app(app)
