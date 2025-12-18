@@ -16,4 +16,11 @@ class Event(db.Model):
         secondary=participation,
         backref=db.backref("joined_events", lazy="dynamic")
     )
+    created_by_id = db.Column(
+    db.Integer,
+    db.ForeignKey("user.id"),
+    nullable=False
+)
+created_by = db.relationship("User", backref="created_events")
+
 
