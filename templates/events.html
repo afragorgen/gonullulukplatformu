@@ -1,33 +1,36 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4">Etkinlikler</h2>
 
-    {% if events %}
-        <div class="row">
-            {% for event in events %}
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ event.title }}</h5>
-                            <p class="card-text">{{ event.description }}</p>
-                            <p class="text-muted">
-                                📍 {{ event.location }} <br>
-                                📅 {{ event.date }}
-                            </p>
+<h2>Etkinlikler</h2>
 
-                            <!-- DETAY LİNKİ YOK – BİLİNÇLİ -->
-                            <button class="btn btn-secondary btn-sm" disabled>
-                                Detaylar (kapalı)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+<div class="row">
+  {% for event in events %}
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+
+          <h5 class="card-title">{{ event.title }}</h5>
+          <p class="card-text">{{ event.description }}</p>
+
+          <p>📍 {{ event.location }}</p>
+          <p>📅 {{ event.date }}</p>
+
+          <a href="{{ url_for('events.event_detail', event_id=event.id) }}"
+             class="btn btn-primary">
+            Detayları Gör
+          </a>
+
+          <a href="{{ url_for('events.event_detail', event_id=event.id) }}"
+             class="btn btn-success ms-2">
+            Gönüllü Ol
+          </a>
+
         </div>
-    {% else %}
-        <p>Henüz etkinlik yok.</p>
-    {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <p>Henüz etkinlik yok.</p>
+  {% endfor %}
 </div>
+
 {% endblock %}

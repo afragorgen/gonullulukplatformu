@@ -1,14 +1,11 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="text-center">
-    <h1 class="display-5 fw-bold">Gönüllülük Platformu</h1>
-    <p class="lead mt-3">
-        Toplum için birlikte gönüllü olabileceğiniz etkinlikleri keşfedin.
-    </p>
 
-    <a href="{{ url_for('events.list_events') }}" class="btn btn-success btn-lg mt-4">
-        Etkinlikleri Gör
-    </a>
-</div>
+<h1>Gönüllülük Platformu</h1>
+<p>Topluma katkı sağlayabileceğin etkinlikleri keşfet.</p>
+
+<a href="{{ url_for('events.list_events') }}" class="btn btn-success mt-3">
+  Etkinlikleri Gör
+</a>
+
 {% endblock %}

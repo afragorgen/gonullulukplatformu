@@ -1,48 +1,38 @@
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, BASE_DIR)
 
 from app import app
 from extensions import db
 from models.event import Event
-from models.user import User
-from datetime import datetime
+from datetime import date
 
 def seed_events():
     with app.app_context():
-
-        user = User.query.first()
-        if not user:
-            print("exit Önce bir kullanıcı oluşturmalısın")
+        if Event.query.first():
+            print("Zaten etkinlik var")
             return
 
-        Event.query.delete()
+        e1 = Event(
+            title="Sokak Hayvanlarına Yardım",
+            description="Mama dağıtımı ve temizlik",
+            date=date(2025, 2, 10),
+            location="Trabzon"
+        )
 
-        events = [
-            Event(
-                title="Hayvan Barınağı Yardımı",
-                description="Barınaktaki hayvanlara mama desteği ve temizlik çalışması.",
-                date="2025-02-10",
-                location="Trabzon Hayvan Barınağı",
-                image_url="animal.jpg",
-                created_at=datetime.utcnow(),
-                created_by_id=user.id
-            ),
-            Event(
-                title="Sahil Temizliği",
-                description="Sahil bölgesinde çevre temizliği yapılacaktır.",
-                date="2025-03-05",
-                location="Trabzon Sahili",
-                image_url="sea.jpg",
-                created_at=datetime.utcnow(),
-                created_by_id=user.id
-            )
-        ]
+        e2 = Event(
+            title="Fidan Dikimi",
+            description="Doğa için fidan dikiyoruz",
+            date=date(2025, 3, 5),
+            location="KTÜ Kampüsü"
+        )
 
-        db.session.add_all(events)
+        db.session.add_all([e1, e2])
         db.session.commit()
-        print(" Event seed işlemi başarılı")
+        print("Etkinlikler eklendi")
+
 
 if __name__ == "__main__":
     seed_events()

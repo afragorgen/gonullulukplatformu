@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Yeni Etkinlik Ekle</h2>
+
+<form method="POST">
+
+  <div class="mb-3">
+    <label class="form-label">Başlık</label>
+    <input type="text" name="title" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Açıklama</label>
+    <textarea name="description" class="form-control" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Konum</label>
+    <input type="text" name="location" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Tarih</label>
+    <input type="date" name="date" class="form-control" required>
+  </div>
+
+  <button class="btn btn-success">Etkinliği Ekle</button>
+
+</form>
+
+{% endblock %}
