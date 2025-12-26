@@ -1,28 +1,27 @@
 from flask import Flask
-from extensions import db, login_manager
+from config import Config
+from extensions import db, login_manager, mail
+
 from routes.auth import auth_bp
 from routes.events import events_bp
 from routes.main_routes import main_bp
+
 from models.user import User
-import auth_loader
 
 app = Flask(__name__)
-
-app.config["SECRET_KEY"] = "super-secret-key-change-me"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///platform.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config.from_object(Config)
 
 db.init_app(app)
 login_manager.init_app(app)
-login_manager.login_view = "auth.login"
+mail.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-app.register_blueprint(main_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(events_bp)
+app.register_blueprint(main_bp)
 
 with app.app_context():
     db.create_all()
